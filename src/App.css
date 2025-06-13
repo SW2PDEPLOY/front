@@ -1,0 +1,482 @@
+/* Estilos para hacer que el diagrama ocupe toda la pantalla */
+.diagram-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Estilos para el contenedor principal cuando se muestra la lista de clases */
+.app-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+/* Estilos esenciales para el iframe del diagrama */
+.diagram-container iframe,
+div[class*="draw"] iframe,
+iframe[name*="draw"] {
+  width: 100% !important;
+  height: 100vh !important;
+  border: none;
+  overflow: hidden;
+}
+
+/* Estilos para los botones */
+.button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.button-container:hover {
+  opacity: 1;
+}
+
+.extract-button, .close-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.extract-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.close-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.extract-button:hover, .close-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.extract-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Estado de carga del botón */
+.extract-button.loading {
+  position: relative;
+  background-color: #388E3C;
+  cursor: wait;
+}
+
+.extract-button.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  right: 10px;
+  top: calc(50% - 10px);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Estilos para el contenedor de clases */
+.classes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 60px;
+}
+
+.classes-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+}
+
+.classes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Mensaje cuando no hay clases */
+.no-classes {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para las tarjetas de clase */
+.class-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.class-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.class-card-header {
+  border-bottom: 1px solid transparent;
+}
+
+.class-divider {
+  height: 0;
+  background-color: #e0e0e0;
+  transition: height 0.3s ease;
+}
+
+.class-divider.expanded {
+  height: 1px;
+}
+
+.class-attributes {
+  transition: all 0.3s ease;
+}
+
+/* Visual improvements for existing styles */
+.class-header {
+  padding: 15px;
+  background: linear-gradient(to right, #f0f7ff, #e6f2ff);
+  font-weight: bold;
+}
+
+.expand-button {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2196F3;
+  margin-right: 12px;
+}
+
+.class-name {
+  color: #1976D2;
+  font-size: 16px;
+}
+
+.attribute-item {
+  padding: 8px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.attribute-item:last-child {
+  border-bottom: none;
+}
+
+.visibility-symbol {
+  font-weight: bold;
+  width: 24px;
+  display: inline-block;
+  text-align: center;
+}
+
+.attribute-name {
+  font-weight: 500;
+}
+
+.attribute-type {
+  color: #0d6efd;
+  font-family: monospace;
+  margin-left: 5px;
+  font-style: italic;
+}
+
+/* Eliminar margen y padding del body para pantalla completa */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ClassTree component styles */
+.class-tree-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.class-tree-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.legend-toggle-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.legend-toggle-button:hover {
+  background-color: #5a6268;
+}
+
+.visibility-legend {
+  background-color: #e9ecef;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.visibility-legend h3 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.class-tree-title {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  color: #333;
+  margin-top: 0;
+}
+
+.class-count {
+  color: #666;
+  text-align: center;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.attribute-summary {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.visibility-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.expand-collapse-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.expand-all-button,
+.collapse-all-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.expand-all-button:hover,
+.collapse-all-button:hover {
+  background-color: #5a6268;
+}
+
+.no-classes-message {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+.class-tree-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.class-tree-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.class-tree-header {
+  background-color: #e9ecef;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.class-tree-header:hover {
+  background-color: #dee2e6;
+}
+
+.class-tree-toggle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 50%;
+  background-color: #6c757d;
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.class-tree-name {
+  font-weight: 600;
+  color: #495057;
+  flex-grow: 1;
+}
+
+.class-attribute-count {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.class-tree-attributes {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: white;
+}
+
+.class-tree-attributes.expanded {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}
+
+.class-tree-attribute {
+  padding: 8px 15px 8px 45px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+}
+
+.visibility-symbol {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.visibility-public {
+  background-color: #28a745;
+  color: white;
+}
+
+.visibility-private {
+  background-color: #dc3545;
+  color: white;
+}
+
+.visibility-protected {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.visibility-default {
+  background-color: #6c757d;
+  color: white;
+}
+
+.attribute-name {
+  font-family: monospace;
+}
+
+.type-separator {
+  color: #6c757d;
+  margin: 0 4px;
+}
+
+.no-attributes {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .class-tree-container {
+    padding: 15px;
+  }
+  
+  .class-tree-title {
+    font-size: 20px;
+  }
+}

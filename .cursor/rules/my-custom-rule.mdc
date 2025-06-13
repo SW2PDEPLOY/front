@@ -1,0 +1,153 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+/* React + TypeScript Expert Guidelines 2024 */
+
+// 1. Principios Fundamentales
+const corePrinciples = {
+  componentParadigm: {
+    rule: "Functional components only",
+    hooks: "Use hooks for state and effects (useState, useEffect, etc.)",
+    optimization: "Apply React.memo() judiciously for performance",
+    patterns: [
+      "Custom hooks for complex logic reuse",
+      "Compound components pattern for UI flexibility",
+      "Context API for global state management"
+    ]
+  },
+
+  typeScriptPractices: {
+    typing: {
+      components: "Use React.FC with props interface",
+      state: "Explicit types for complex state objects",
+      generics: "Leverage TypeScript generics for reusable utilities",
+      strict: "Enable strict: true in tsconfig.json",
+      inference: "Prefer type inference where appropriate"
+    },
+    interfaces: "Separate component props into dedicated interfaces",
+    utilityTypes: "Use TypeScript utility types (Pick, Omit, Partial)"
+  },
+
+  projectStructure: `
+    src/
+      components/      # Atomic design subfolders (atoms, molecules, organisms)
+      hooks/          # Custom hooks with 'use' prefix
+      lib/            # Third-party integrations/utilities
+      pages/          # Next.js page components (App Router)
+      providers/      # Context providers
+      public/         # Static assets
+      styles/         # Global styles & Tailwind config
+      types/          # Global type definitions
+      utils/          # Helper functions and services
+      app/            # Next.js App Router directory
+        layout.tsx
+        page.tsx
+  `
+};
+
+// 2. Convenciones de Desarrollo
+const developmentConventions = {
+  naming: {
+    components: "PascalCase for components (Button.tsx)",
+    hooks: "use prefix + camelCase (useDarkMode.ts)",
+    props: "camelCase with descriptive names",
+    interfaces: "PascalCase with 'Props' suffix (ButtonProps)",
+    types: "PascalCase with 'Type' suffix (UserType)"
+  },
+
+  uiStyling: {
+    framework: "Tailwind CSS with Shadcn UI components",
+    strategy: [
+      "Mobile-first responsive design",
+      "CSS-in-JS for dynamic styles (styled-components)",
+      "Component variants using clsx/cva",
+      "Dark mode support via CSS variables"
+    ],
+    icons: "Use Lucide React icon library"
+  },
+
+  performance: {
+    rendering: [
+      "Virtualization for large lists (react-virtuoso)",
+      "Memoization with useMemo/useCallback",
+      "Suspense boundaries for async operations",
+      "Code splitting with React.lazy()"
+    ],
+    data: [
+      "SWR/React Query for server state",
+      "Optimistic UI updates",
+      "Debounced inputs"
+    ]
+  }
+};
+
+// 3. Reglas de Calidad
+const qualityRules = {
+  staticAnalysis: {
+    eslint: "Airbnb config + TypeScript + React Hooks rules",
+    prettier: "Integrated with ESLint for consistent formatting",
+    husky: "Pre-commit hooks for linting and testing"
+  },
+
+  testing: {
+    unit: "Jest + Testing Library (components/hooks)",
+    e2e: "Cypress/Playwright for critical user flows",
+    mocks: "MSW for API mocking",
+    coverage: "Minimum 80% coverage for core features"
+  },
+
+  documentation: {
+    component: "Storybook with TypeScript addon",
+    hooks: "JSDoc with type annotations",
+    project: "README.md with architecture decisions"
+  }
+};
+
+// 4. Mejores Prácticas Avanzadas
+const advancedPractices = [
+  "Implement error boundaries with fallback UI",
+  "Use Next.js App Router for routing and SSR/SSG",
+  "Type-safe i18n with react-i18next",
+  "Zod for runtime validation of API responses",
+  "Radix UI primitives for accessible components",
+  "Automated visual regression testing",
+  "TypeScript path aliases for cleaner imports",
+  "Strict Content Security Policy (CSP)"
+];
+
+// 5. Reglas de Implementación
+const implementationRules = `
+1. Always use TypeScript strict mode
+2. Prefer functional composition over inheritance
+3. Avoid any type - use unknown with type guards
+4. Enable ESLint strict-boolean-expressions
+5. Use satisfies operator for type safety
+6. Prefer readonly types for immutable data
+7. Use template literals for complex strings
+8. Enforce import order (external → internal → type)
+9. Type-safe event handlers (React.FormEvent<HTMLInputElement>)
+10. Use satisfies operator for component props
+`;
+
+// 6. Gestión de Dependencias
+const dependencies = {
+  core: [
+    "react@latest",
+    "typescript@5.x",
+    "next@14.x (App Router)",
+    "tailwindcss@3.x",
+    "shadcn-ui@latest"
+  ],
+  utilities: [
+    "zustand@4.x (state management)",
+    "react-hook-form@7.x (type-safe forms)",
+    "date-fns@3.x (date handling)"
+  ],
+  typeSafety: [
+    "@types/react@18.x",
+    "@types/node@20.x",
+    "typescript-eslint@7.x"
+  ]
+};

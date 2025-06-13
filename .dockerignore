@@ -1,0 +1,18 @@
+node_modules
+.git
+.github
+.gitignore
+# Permitimos copiar los archivos .env al contenedor
+# .env
+# .env.*
+*.log
+dist
+.DS_Store
+.idea
+.vscode
+coverage
+.cursor
+README.md
+docker-compose.yml
+Dockerfile
+.dockerignore 
